@@ -399,10 +399,17 @@ def not_found(error):
 def internal_error(error):
     return jsonify({"error": "Internal server error"}), 500
 
+def create_app():
+    return app
+
+
 if __name__ == '__main__':
-    # Run the Flask app
     port = int(os.getenv('PORT', 5000))
     debug = os.getenv('FLASK_DEBUG', 'False').lower() == 'true'
-    
+
     logger.info(f"Starting FertiSmart Backend on port {port}")
     app.run(host='0.0.0.0', port=port, debug=debug)
+
+
+# Gunicorn compatibility
+application = app
